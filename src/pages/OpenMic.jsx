@@ -12,6 +12,7 @@ const EMPTY_FORM = {
   hometown: '',
   comedy_style: '',
   first_time: '',
+  show_updates_optin: false,
   website: '', // honeypot — real users never see or fill this
 };
 
@@ -38,8 +39,8 @@ export default function OpenMic() {
   }
 
   function handleChange(e) {
-    const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setForm(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
   }
 
   async function handleSubmit(e) {
@@ -68,6 +69,29 @@ export default function OpenMic() {
       }]);
 
       if (insertErr) throw insertErr;
+
+      // Add to Brevo (open mic list + optional show updates list) server-side.
+      // If this fails, the signup itself still succeeded above — don't block
+      // the user's confirmation over an email marketing hiccup.
+      try {
+        await fetch('/.netlify/functions/open-mic-brevo-signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            first_name: form.first_name,
+            last_name: form.last_name,
+            email: form.email,
+            stage_name: form.stage_name,
+            phone: form.phone,
+            hometown: form.hometown,
+            comedy_style: form.comedy_style,
+            first_time: form.first_time,
+            show_updates_optin: form.show_updates_optin,
+          }),
+        });
+      } catch (brevoErr) {
+        console.error('Brevo signup failed (non-blocking):', brevoErr);
+      }
 
       setSubmitted(true);
       setForm(EMPTY_FORM);
@@ -184,6 +208,16 @@ export default function OpenMic() {
                   </label>
                 </div>
               </div>
+
+              <label className="openmic-checkbox">
+                <input
+                  type="checkbox"
+                  name="show_updates_optin"
+                  checked={form.show_updates_optin}
+                  onChange={handleChange}
+                />
+                <span>Keep me updated on where Major is performing</span>
+              </label>
 
               {error && <p className="openmic-error">{error}</p>}
 
