@@ -1,0 +1,44 @@
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.portfolio-photo {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(225,53,47,0.15);
+  aspect-ratio: 3 / 4;
+  position: relative;
+}
+
+.portfolio-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.portfolio-photo:hover img {
+  transform: scale(1.04);
+}
+
+.portfolio-photo:hover {
+  border-color: var(--red);
+  box-shadow: var(--red-glow);
+}
+
+@media (max-width: 768px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+}
