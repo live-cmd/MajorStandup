@@ -6,6 +6,8 @@ import './Home.css';
 const SUPABASE = (path) =>
   `https://psxvjiuufwwcqrkdpueh.supabase.co/storage/v1/object/public/afterdark-media/major/${path}`;
 
+const LOGO = SUPABASE('major%20logo.png');
+
 export default function Home() {
   return (
     <div className="home-page">
@@ -17,6 +19,7 @@ export default function Home() {
 
           <div className="home-hero__left">
             <ScrollReveal>
+              <img src={LOGO} alt="M.A.J.O.R" className="home-hero__logo" />
               <p className="section-label">Stand-Up Comedian</p>
               <h1 className="display text-red glow-text home-hero__title">
                 Making A<br />Joke Out<br />Of Reality
@@ -84,12 +87,19 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal delay={150}>
-            <blockquote className="home-bio__quote">
-              "Comedy saved me and showed me a better path. Comedy has been
-              major to me. Now I just want to become major to comedy... I owe
-              it that much, yesGod."
-              <cite>— Major Johnson, Cut to The Chase (2020)</cite>
-            </blockquote>
+            <div className="home-bio__right">
+              <img
+                src={SUPABASE('Major-big-smile.heic')}
+                alt="Major Johnson"
+                className="home-bio__photo"
+              />
+              <blockquote className="home-bio__quote">
+                &ldquo;Comedy saved me and showed me a better path. Comedy has been
+                major to me. Now I just want to become major to comedy... I owe
+                it that much, yesGod.&rdquo;
+                <cite>— Major Johnson, Cut to The Chase (2020)</cite>
+              </blockquote>
+            </div>
           </ScrollReveal>
         </div>
       </section>
