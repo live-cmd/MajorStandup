@@ -1,0 +1,85 @@
+.home-hero {
+  padding: 160px 0 100px;
+  position: relative;
+  overflow: hidden;
+}
+.home-hero__bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 70% 50%, rgba(225,53,47,0.08), transparent 60%);
+  z-index: 0;
+}
+.home-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.home-hero__left { display: flex; flex-direction: column; gap: 20px; }
+.home-hero__title { font-size: clamp(3.5rem, 8vw, 6.5rem); margin: 8px 0 16px; }
+.home-hero__sub { font-size: 1rem; line-height: 1.75; }
+.home-hero__actions { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
+
+.home-hero__right { position: relative; }
+.home-hero__photo {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: top;
+  border-radius: var(--radius-lg);
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+.home-hero__photo-glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--red), transparent 60%);
+  z-index: 0;
+  opacity: 0.6;
+  animation: pulseRed 2.8s ease-in-out infinite;
+}
+.home-hero__photo-wrap {
+  position: relative;
+}
+
+/* Bio section */
+.home-bio { background: rgba(255,255,255,0.015); }
+.home-bio__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.home-bio__title { font-size: clamp(1.8rem, 3.5vw, 2.4rem); margin-bottom: 20px; }
+.home-bio__text { font-size: 1rem; line-height: 1.75; color: var(--white-dim); }
+.home-bio__text p { margin-bottom: 16px; }
+.home-bio__text p:last-child { margin-bottom: 0; }
+
+.home-bio__quote {
+  border-left: 3px solid var(--red);
+  padding-left: 24px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-style: italic;
+  color: var(--white-dim);
+}
+.home-bio__quote cite {
+  display: block;
+  margin-top: 12px;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-style: normal;
+  color: var(--red-light);
+}
+
+@media (max-width: 880px) {
+  .home-hero__inner { grid-template-columns: 1fr; }
+  .home-hero__right { max-width: 360px; margin: 0 auto; }
+  .home-bio__inner { grid-template-columns: 1fr; }
+  .home-hero { padding: 120px 0 60px; }
+}
