@@ -19,7 +19,9 @@ export default function Home() {
 
           <div className="home-hero__left">
             <ScrollReveal>
-              <img src={LOGO} alt="M.A.J.O.R" className="home-hero__logo" />
+              <div className="home-hero__logo-wrap">
+                <img src={LOGO} alt="M.A.J.O.R" className="home-hero__logo" />
+              </div>
               <p className="section-label">Stand-Up Comedian</p>
               <h1 className="display text-red glow-text home-hero__title">
                 Making A<br />Joke Out<br />Of Reality
