@@ -1,7 +1,16 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
+import QuoteTicker from '../components/QuoteTicker';
 import './PageShell.css';
 import './OpenMic.css';
+
+const MIC_QUOTES = [
+  'This mic really helps comedians improve their skills',
+  'These guys helped me with my set and then booked me on a show',
+  "It's like a support group for comedians",
+  "It's the coolest combination for comedians, like half workout, half workshop",
+  'Great way to network with other comedians',
+];
 
 const EMPTY_FORM = {
   first_name: '',
@@ -108,7 +117,7 @@ export default function OpenMic() {
       <section className="page-hero">
         <div className="container">
           <p className="section-label">My Mic</p>
-          <h1 className="display text-red page-hero__title">Major Open Mic</h1>
+          <h1 className="display text-red glow-text page-hero__title">Major Open Mic</h1>
           <p className="page-hero__sub text-dim">
             Hey, athletes work out at the gym, and comedians work out at The
             Mic. Whether you're new to comedy, or a seasoned vet, my mic is
@@ -121,6 +130,8 @@ export default function OpenMic() {
           </p>
         </div>
       </section>
+
+      <QuoteTicker quotes={MIC_QUOTES} />
 
       <section className="section">
         <div className="container">
