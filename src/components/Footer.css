@@ -82,3 +82,5 @@
 .footer__social a:hover { color: var(--red); }
 
 .footer__copy { font-size: 0.75rem; color: var(--white-dim); }
+.footer__admin-link { color: var(--white-dim); opacity: 0.5; }
+.footer__admin-link:hover { color: var(--red); opacity: 1; }
