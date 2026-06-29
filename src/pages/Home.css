@@ -17,19 +17,21 @@
   gap: 64px;
   align-items: center;
 }
-.home-hero__left { display: flex; flex-direction: column; gap: 20px; }
+.home-hero__left { display: flex; flex-direction: column; gap: 20px; align-items: center; text-align: center; }
 
-/* Logo above hero text — uses mix-blend-mode to drop black bg */
+/* Logo sized like a headline, centered over the text */
 .home-hero__logo {
-  height: 60px;
-  width: auto;
+  width: 100%;
+  max-width: 340px;
+  height: auto;
   mix-blend-mode: screen;
-  margin-bottom: 4px;
+  display: block;
+  margin: 0 auto 8px;
 }
 
 .home-hero__title { font-size: clamp(3.5rem, 8vw, 6.5rem); margin: 4px 0 16px; }
-.home-hero__sub { font-size: 1rem; line-height: 1.75; }
-.home-hero__actions { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
+.home-hero__sub { font-size: 1rem; line-height: 1.75; max-width: 440px; }
+.home-hero__actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
 
 .home-hero__right { position: relative; }
 .home-hero__photo {
@@ -103,5 +105,5 @@
   .home-hero__right { max-width: 360px; margin: 0 auto; }
   .home-bio__inner { grid-template-columns: 1fr; }
   .home-hero { padding: 120px 0 60px; }
-  .home-hero__logo { height: 48px; }
+  .home-hero__logo { max-width: 260px; }
 }
