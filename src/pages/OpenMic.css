@@ -1,0 +1,47 @@
+.openmic-form {
+  max-width: 480px;
+  margin: 0 auto 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.openmic-input {
+  background: var(--black-mid);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--white);
+  outline: none;
+  transition: var(--transition);
+}
+.openmic-input:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(225,53,47,0.12); }
+.openmic-label { font-family: var(--font-heading); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white-dim); margin-bottom: 6px; display: block; }
+.openmic-error { color: var(--red-light); font-size: 0.85rem; }
+.openmic-success { text-align: center; padding: 32px 0; }
+.openmic-success__icon { font-size: 2rem; color: var(--red); margin-bottom: 12px; }
+
+.openmic-list { max-width: 560px; margin: 0 auto; }
+.openmic-list__title { font-size: 1.2rem; margin-bottom: 20px; text-align: center; }
+.openmic-list__row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  background: var(--black-mid);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-left: 3px solid var(--red);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+}
+.openmic-list__pos {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--red);
+  width: 32px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.openmic-list__name { font-weight: 600; }
+.openmic-list__empty { text-align: center; color: var(--white-dim); padding: 24px 0; }
