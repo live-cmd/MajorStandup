@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import './Nav.css';
 
-const LOGO = 'https://psxvjiuufwwcqrkdpueh.supabase.co/storage/v1/object/public/afterdark-media/major/major_logo.png';
+const LOGO = 'https://psxvjiuufwwcqrkdpueh.supabase.co/storage/v1/object/public/afterdark-media/major/major%20logo.png';
 
 const NAV_LINKS = [
   { to: '/',          label: 'Home' },
