@@ -12,7 +12,7 @@
   display: flex;
   justify-content: center;
   gap: 24px;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
   flex-wrap: wrap;
 }
 .footer__links a {
@@ -23,6 +23,30 @@
   color: var(--white-dim);
 }
 .footer__links a:hover { color: var(--red); }
+
+.footer__stay-updated {
+  max-width: 360px;
+  margin: 0 auto 32px;
+}
+.footer__signup-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.footer__signup-input {
+  flex: 1;
+  background: var(--black-mid);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  color: var(--white);
+  outline: none;
+}
+.footer__signup-input:focus { border-color: var(--red); }
+.footer__signup-btn { padding: 10px 18px; font-size: 0.75rem; flex-shrink: 0; }
+.footer__signup-success { color: var(--red-light); font-size: 0.9rem; margin-top: 8px; }
+.footer__signup-error { color: var(--red-light); font-size: 0.8rem; margin-top: 8px; }
 
 .footer__contact {
   margin-bottom: 20px;
