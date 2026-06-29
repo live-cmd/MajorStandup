@@ -1,0 +1,60 @@
+.quote-ticker {
+  overflow: hidden;
+  padding: 20px 0;
+  margin: 40px 0;
+}
+.quote-ticker__track {
+  display: flex;
+  width: max-content;
+  animation: quoteScroll 36s linear infinite;
+}
+.quote-ticker:hover .quote-ticker__track {
+  animation-play-state: paused;
+}
+.quote-ticker__segment {
+  display: flex;
+  gap: 16px;
+  padding-right: 16px;
+}
+
+.quote-card {
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+  background: var(--black-mid);
+  border: 1px solid rgba(225,53,47,0.25);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  transition: var(--transition);
+}
+.quote-card:hover {
+  border-color: var(--red);
+  box-shadow: var(--red-glow);
+  transform: translateY(-4px) scale(1.03);
+}
+.quote-card__mark {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--red);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.quote-card__text {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--white-dim);
+}
+
+@keyframes quoteScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (max-width: 600px) {
+  .quote-card { width: 160px; height: 160px; padding: 16px; }
+  .quote-card__text { font-size: 0.78rem; }
+}
