@@ -136,7 +136,7 @@ export default function Admin() {
     <div className="admin-page">
       <div className="admin-header">
         <div className="admin-header__brand">Show Manager</div>
-        <button className="admin-pill" onClick={() => { setAuthed(false); window.location.href = '/'; }}>Sign Out</button>
+        <button className="admin-pill" onClick={() => { setAuthed(false); window.location.href = '/calendar'; }}>Sign Out</button>
       </div>
 
       <section className="admin-section">
