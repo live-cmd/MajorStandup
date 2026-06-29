@@ -69,7 +69,11 @@ export default function Footer() {
           <a href="https://tiktok.com" target="_blank" rel="noreferrer" aria-label="TikTok">🎵</a>
         </div>
 
-        <p className="footer__copy">© {new Date().getFullYear()} Major Johnson. All rights reserved.</p>
+        <p className="footer__copy">
+          © {new Date().getFullYear()} Major Johnson. All rights reserved.
+          {' '}&middot;{' '}
+          <Link to="/admin" className="footer__admin-link">Admin</Link>
+        </p>
       </div>
     </footer>
   );
