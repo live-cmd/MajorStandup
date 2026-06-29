@@ -1,48 +1,99 @@
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import './PageShell.css';
+import './Home.css';
+
+const SUPABASE = (path) =>
+  `https://psxvjiuufwwcqrkdpueh.supabase.co/storage/v1/object/public/afterdark-media/major/${path}`;
 
 export default function Home() {
   return (
     <div className="home-page">
+
+      {/* ── HERO ── */}
       <section className="home-hero">
-        <div className="container">
-          <ScrollReveal>
-            <p className="section-label">Stand-Up Comedian</p>
-            <h1 className="display text-red glow-text home-hero__title">Major<br />Standup</h1>
-          </ScrollReveal>
-          <ScrollReveal delay={120}>
-            <p className="home-hero__sub text-dim">
-              Major Johnson is a stand-up comedian, doing stand-up for five
-              years under the stage name of Major. He tells his audiences that
-              Major stands for Making A Joke Out of Reality, as a lot of his
-              comedy references his real life experiences. However, in a more
-              candid conversation, he shared that he believes his parents added
-              Major to his name to signify that he was meant for bigger things
-              than what the streets of Chester, PA expects.
-            </p>
-            <p className="home-hero__sub text-dim">
-              Comedy came to Major in the form of a dream after spending a long
-              weekend at the &ldquo;County Hotel&rdquo; aka jail. He recalls
-              having a dream where none other than the King of Comedy himself,
-              Bernie Mac, spoke to him and convinced him to get off the block
-              and get on the stage to use his humor to help people deal with
-              their reality. Major started hitting open mic nights wherever he
-              could and has been performing as a feature and headliner for the
-              last year. In a 2020 interview with Cut to The Chase he stated,
-              &ldquo;Comedy saved me and showed me a better path. Comedy has
-              been major to me. Now I just want to become major to comedy... I
-              owe it that much, yesGod.&rdquo;
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={240}>
-            <div className="home-hero__actions">
-              <Link to="/portfolio" className="btn btn-red">See My Work</Link>
-              <Link to="/booking" className="btn btn-outline-white">Book Major</Link>
+        <div className="home-hero__bg" />
+        <div className="container home-hero__inner">
+
+          <div className="home-hero__left">
+            <ScrollReveal>
+              <p className="section-label">Stand-Up Comedian</p>
+              <h1 className="display text-red glow-text home-hero__title">
+                Making A<br />Joke Out<br />Of Reality
+              </h1>
+            </ScrollReveal>
+            <ScrollReveal delay={100}>
+              <p className="home-hero__sub text-dim">
+                Five years on stage. Every kind of room. From Chester, PA
+                to wherever the next mic is — Major Johnson shows up and
+                delivers every time.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={200}>
+              <div className="home-hero__actions">
+                <Link to="/calendar" className="btn btn-red">Catch A Show</Link>
+                <Link to="/booking" className="btn btn-outline-white">Book Major</Link>
+              </div>
+            </ScrollReveal>
+          </div>
+
+          <ScrollReveal delay={150}>
+            <div className="home-hero__right">
+              <div className="home-hero__photo-wrap">
+                <div className="home-hero__photo-glow" />
+                <img
+                  src={SUPABASE('Major_black-red.heic')}
+                  alt="Major Johnson — Stand-Up Comedian"
+                  className="home-hero__photo"
+                />
+              </div>
             </div>
+          </ScrollReveal>
+
+        </div>
+      </section>
+
+      {/* ── BIO ── */}
+      <section className="section home-bio">
+        <div className="container home-bio__inner">
+          <ScrollReveal>
+            <div>
+              <p className="section-label">The Story</p>
+              <span className="red-line" />
+              <h2 className="home-bio__title">M.A.J.O.R —<br />Making A Joke Out Of Reality</h2>
+              <div className="home-bio__text">
+                <p>
+                  Major Johnson is a stand-up comedian, doing stand-up for five
+                  years under the stage name of Major. He tells his audiences that
+                  Major stands for Making A Joke Out of Reality — a lot of his
+                  comedy references his real life experiences.
+                </p>
+                <p>
+                  Comedy came to Major in the form of a dream after spending a
+                  long weekend at the &ldquo;County Hotel&rdquo; aka jail. None
+                  other than the King of Comedy himself, Bernie Mac, spoke to him
+                  in that dream and convinced him to get off the block and use his
+                  humor to help people deal with their reality.
+                </p>
+                <p>
+                  Major started hitting open mic nights wherever he could and has
+                  been performing as a feature and headliner ever since.
+                </p>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={150}>
+            <blockquote className="home-bio__quote">
+              "Comedy saved me and showed me a better path. Comedy has been
+              major to me. Now I just want to become major to comedy... I owe
+              it that much, yesGod."
+              <cite>— Major Johnson, Cut to The Chase (2020)</cite>
+            </blockquote>
           </ScrollReveal>
         </div>
       </section>
+
     </div>
   );
 }
