@@ -6,6 +6,7 @@
   gap: 16px;
 }
 .openmic-input {
+  width: 100%;
   background: var(--black-mid);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: var(--radius);
@@ -45,3 +46,31 @@
 }
 .openmic-list__name { font-weight: 600; }
 .openmic-list__empty { text-align: center; color: var(--white-dim); padding: 24px 0; }
+
+.openmic-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 600px) {
+  .openmic-form__row { grid-template-columns: 1fr; }
+}
+
+.openmic-radio-group { display: flex; gap: 24px; margin-top: 4px; }
+.openmic-radio { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--white-dim); }
+.openmic-radio input { accent-color: var(--red); }
+
+.openmic-list__badge {
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(225,53,47,0.15);
+  color: var(--red-light);
+  margin-left: auto;
+}
+.openmic-list__badge--standby {
+  background: rgba(255,255,255,0.06);
+  color: var(--white-dim);
+}
