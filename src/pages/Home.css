@@ -19,24 +19,12 @@
 }
 .home-hero__left { display: flex; flex-direction: column; gap: 16px; align-items: center; text-align: center; }
 
-/* Logo — constrain by height so the PNG's internal padding doesn't
-   bloat vertical space. mix-blend-mode:screen drops the black background. */
-.home-hero__logo-wrap {
-  width: 100%;
-  height: 90px;        /* controls how tall the visible logo art appears */
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: -8px; /* pull the label/title up tight underneath */
-}
 .home-hero__logo {
-  height: 200%;        /* oversized so the art fills the cropped window */
-  width: auto;
-  mix-blend-mode: screen;
+  width: 100%;
+  max-width: 380px;
+  height: auto;
   display: block;
-  object-fit: contain;
-  object-position: center;
+  margin: 0 auto -4px;
 }
 
 .home-hero__title { font-size: clamp(3.5rem, 8vw, 6.5rem); margin: 0 0 8px; }
@@ -115,5 +103,5 @@
   .home-hero__right { max-width: 360px; margin: 0 auto; }
   .home-bio__inner { grid-template-columns: 1fr; }
   .home-hero { padding: 120px 0 60px; }
-  .home-hero__logo-wrap { height: 70px; }
+  .home-hero__logo { max-width: 280px; }
 }
