@@ -2,14 +2,6 @@ import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import './PageShell.css';
 
-const HYPE_QUOTES = [
-  '"This mic really helps comedians improve their skills"',
-  '"These guys helped me with my set and then book me on a show"',
-  '"It\'s like a support group for comedians"',
-  '"It\'s the coolest combination for comedians, like half workout, half workshop"',
-  '"Great way to network with other comedians"',
-];
-
 export default function Home() {
   return (
     <div className="home-page">
@@ -51,20 +43,6 @@ export default function Home() {
           </ScrollReveal>
         </div>
       </section>
-
-      {/* ── ENERGY TICKER ── */}
-      <div className="ticker" aria-label="What audiences are saying">
-        <div className="ticker__track">
-          {Array(2).fill(null).map((_, i) => (
-            <span key={i} className="ticker__segment">
-              <span className="ticker__item ticker__item--hype">★★★★★ Major Open Mic &bull; Tuesdays 7:30 PM &bull;</span>
-              {HYPE_QUOTES.map((q, j) => (
-                <span key={j} className="ticker__item">{q} &bull;</span>
-              ))}
-            </span>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
