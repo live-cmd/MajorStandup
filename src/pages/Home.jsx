@@ -6,7 +6,7 @@ import './Home.css';
 const SUPABASE = (path) =>
   `https://psxvjiuufwwcqrkdpueh.supabase.co/storage/v1/object/public/afterdark-media/major/${path}`;
 
-const LOGO = SUPABASE('major%20logo.png');
+const LOGO = SUPABASE('major%20logo-2.png');
 
 export default function Home() {
   return (
@@ -19,9 +19,7 @@ export default function Home() {
 
           <div className="home-hero__left">
             <ScrollReveal>
-              <div className="home-hero__logo-wrap">
-                <img src={LOGO} alt="M.A.J.O.R" className="home-hero__logo" />
-              </div>
+              <img src={LOGO} alt="M.A.J.O.R" className="home-hero__logo" />
               <p className="section-label">Stand-Up Comedian</p>
               <h1 className="display text-red glow-text home-hero__title">
                 Making A<br />Joke Out<br />Of Reality
