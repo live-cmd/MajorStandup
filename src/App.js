@@ -6,6 +6,7 @@ import Portfolio from './pages/Portfolio';
 import Calendar from './pages/Calendar';
 import Booking from './pages/Booking';
 import OpenMic from './pages/OpenMic';
+import Admin from './pages/Admin';
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/open-mic" element={<OpenMic />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
       <Footer />
     </>
