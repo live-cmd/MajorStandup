@@ -14,6 +14,13 @@ const EMPTY_FORM = {
   notes: '',
 };
 
+const EMPTY_CLIP_FORM = {
+  title: '',
+  youtube_url: '',
+  thumbnail_url: '',
+  clip_date: '',
+};
+
 export default function Admin() {
   const [authed, setAuthed] = useState(false);
   const [password, setPassword] = useState('');
@@ -33,10 +40,20 @@ export default function Admin() {
   const [clearing, setClearing] = useState(false);
   const [micMessage, setMicMessage] = useState('');
 
+  // Performance Clips state
+  const [clips, setClips] = useState([]);
+  const [clipsLoading, setClipsLoading] = useState(false);
+  const [clipForm, setClipForm] = useState(EMPTY_CLIP_FORM);
+  const [clipEditingId, setClipEditingId] = useState(null);
+  const [clipSaving, setClipSaving] = useState(false);
+  const [clipMessage, setClipMessage] = useState('');
+  const [clipDeleting, setClipDeleting] = useState(null);
+
   useEffect(() => {
     if (authed) {
       fetchShows();
       fetchSignups();
+      fetchClips();
     }
   }, [authed]);
 
@@ -75,6 +92,74 @@ export default function Admin() {
       fetchSignups();
     }
     setClearing(false);
+  }
+
+  // ── PERFORMANCE CLIPS ──
+  async function fetchClips() {
+    setClipsLoading(true);
+    const { data, error } = await supabase
+      .from('major_performance_clips')
+      .select('*')
+      .order('clip_date', { ascending: false });
+    if (!error) setClips(data || []);
+    setClipsLoading(false);
+  }
+
+  function handleClipFormChange(e) {
+    const { name, value } = e.target;
+    setClipForm(prev => ({ ...prev, [name]: value }));
+  }
+
+  async function handleClipSave(e) {
+    e.preventDefault();
+    setClipSaving(true);
+    setClipMessage('');
+    const payload = {
+      title: clipForm.title,
+      youtube_url: clipForm.youtube_url,
+      thumbnail_url: clipForm.thumbnail_url || null,
+      clip_date: clipForm.clip_date || null,
+    };
+    let error;
+    if (clipEditingId) {
+      ({ error } = await supabase.from('major_performance_clips').update(payload).eq('id', clipEditingId));
+    } else {
+      ({ error } = await supabase.from('major_performance_clips').insert([payload]));
+    }
+    if (error) {
+      setClipMessage('❌ Error saving clip: ' + error.message);
+    } else {
+      setClipMessage(clipEditingId ? '✓ Clip updated.' : '✓ Clip added.');
+      setClipForm(EMPTY_CLIP_FORM);
+      setClipEditingId(null);
+      fetchClips();
+    }
+    setClipSaving(false);
+  }
+
+  function handleClipEdit(clip) {
+    setClipEditingId(clip.id);
+    setClipForm({
+      title: clip.title || '',
+      youtube_url: clip.youtube_url || '',
+      thumbnail_url: clip.thumbnail_url || '',
+      clip_date: clip.clip_date || '',
+    });
+  }
+
+  function handleClipCancel() {
+    setClipForm(EMPTY_CLIP_FORM);
+    setClipEditingId(null);
+    setClipMessage('');
+  }
+
+  async function handleClipDelete(id) {
+    if (!window.confirm('Delete this clip? This cannot be undone.')) return;
+    setClipDeleting(id);
+    const { error } = await supabase.from('major_performance_clips').delete().eq('id', id);
+    if (!error) { setClipMessage('✓ Clip deleted.'); fetchClips(); }
+    else { setClipMessage('❌ Error deleting clip.'); }
+    setClipDeleting(null);
   }
 
   function handleLogin(e) {
@@ -239,6 +324,65 @@ export default function Admin() {
               <button className="admin-pill" onClick={() => handleEdit(show)}>Edit</button>
               <button className="admin-pill admin-pill--delete" onClick={() => handleDelete(show.id)} disabled={deleting === show.id}>
                 {deleting === show.id ? '...' : 'Delete'}
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── PERFORMANCE CLIPS ── */}
+      <section className="admin-section">
+        <h2 className="admin-section__title">🎬 {clipEditingId ? 'Edit Clip' : 'Add Performance Clip'}</h2>
+        <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.85rem', marginBottom: '20px' }}>
+          Upload the clip to YouTube as Unlisted first, then paste the link here. Thumbnail auto-pulls from YouTube unless you provide your own.
+        </p>
+        {clipMessage && (
+          <div className={`admin-message ${clipMessage.startsWith('❌') ? 'admin-message--error' : 'admin-message--success'}`}>
+            {clipMessage}
+          </div>
+        )}
+        <form onSubmit={handleClipSave} className="admin-form">
+          <div className="admin-form__row">
+            <div>
+              <label className="admin-label">Clip Title *</label>
+              <input name="title" value={clipForm.title} onChange={handleClipFormChange} className="admin-input" placeholder="e.g. Headliner Set — Philly" required />
+            </div>
+            <div>
+              <label className="admin-label">Clip Date</label>
+              <input type="date" name="clip_date" value={clipForm.clip_date} onChange={handleClipFormChange} className="admin-input" />
+            </div>
+          </div>
+          <div>
+            <label className="admin-label">YouTube URL *</label>
+            <input name="youtube_url" value={clipForm.youtube_url} onChange={handleClipFormChange} className="admin-input" placeholder="https://youtube.com/watch?v=..." required />
+          </div>
+          <div>
+            <label className="admin-label">Custom Thumbnail URL (optional)</label>
+            <input name="thumbnail_url" value={clipForm.thumbnail_url} onChange={handleClipFormChange} className="admin-input" placeholder="Leave blank to use YouTube's default thumbnail" />
+          </div>
+          <div className="admin-form__actions">
+            <button type="submit" className="btn btn-red" disabled={clipSaving}>
+              {clipSaving ? 'Saving...' : clipEditingId ? 'Update Clip' : 'Add Clip'}
+            </button>
+            {clipEditingId && <button type="button" className="admin-pill" onClick={handleClipCancel}>Cancel</button>}
+          </div>
+        </form>
+
+        <h3 className="admin-section__title" style={{ marginTop: '32px', fontSize: '1rem' }}>
+          Current Clips {clips.length > 0 && `(${clips.length})`}
+        </h3>
+        {clipsLoading && <p className="admin-loading">Loading...</p>}
+        {!clipsLoading && clips.length === 0 && <p className="admin-empty">No clips yet. Add one above.</p>}
+        <div className="admin-shows">
+          {clips.map(clip => (
+            <div key={clip.id} className="admin-show-row">
+              <div className="admin-show-row__info">
+                <div className="admin-show-row__name">{clip.title}</div>
+                <div className="admin-show-row__meta">{clip.clip_date || 'No date set'}</div>
+              </div>
+              <button className="admin-pill" onClick={() => handleClipEdit(clip)}>Edit</button>
+              <button className="admin-pill admin-pill--delete" onClick={() => handleClipDelete(clip.id)} disabled={clipDeleting === clip.id}>
+                {clipDeleting === clip.id ? '...' : 'Delete'}
               </button>
             </div>
           ))}
