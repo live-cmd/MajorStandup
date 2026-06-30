@@ -4,6 +4,9 @@ import QuoteTicker from '../components/QuoteTicker';
 import './PageShell.css';
 import './OpenMic.css';
 
+const SUPABASE = (path) =>
+  `https://psxvjiuufwwcqrkdpueh.supabase.co/storage/v1/object/public/afterdark-media/major/${path}`;
+
 const MIC_QUOTES = [
   'This mic really helps comedians improve their skills',
   'These guys helped me with my set and then booked me on a show',
@@ -114,20 +117,29 @@ export default function OpenMic() {
 
   return (
     <div className="openmic-page">
-      <section className="page-hero">
-        <div className="container">
-          <p className="section-label">My Mic</p>
-          <h1 className="display text-red glow-text page-hero__title">Major Open Mic</h1>
-          <p className="page-hero__sub text-dim">
-            Hey, athletes work out at the gym, and comedians work out at The
-            Mic. Whether you're new to comedy, or a seasoned vet, my mic is
-            here to help you increase your skill and further your comedy
-            career.
-          </p>
-          <p className="page-hero__sub text-dim">
-            <strong>Tuesdays, 7:30 PM</strong> &middot; Cool J's AfterDARK &middot;
-            Free to the public, 1 drink minimum.
-          </p>
+      <section className="page-hero page-hero--with-photo">
+        <div className="container page-hero__inner">
+          <div className="page-hero__text">
+            <p className="section-label">My Mic</p>
+            <h1 className="display text-red glow-text page-hero__title">Major Open Mic</h1>
+            <p className="page-hero__sub text-dim">
+              Hey, athletes work out at the gym, and comedians work out at The
+              Mic. Whether you're new to comedy, or a seasoned vet, my mic is
+              here to help you increase your skill and further your comedy
+              career.
+            </p>
+            <p className="page-hero__sub text-dim">
+              <strong>Tuesdays, 7:30 PM</strong> &middot; Cool J's AfterDARK &middot;
+              Free to the public, 1 drink minimum.
+            </p>
+          </div>
+          <div className="page-hero__photo-wrap">
+            <img
+              src={SUPABASE('Major-mic-point-2.jpg')}
+              alt="Major Johnson pointing the mic at the crowd"
+              className="page-hero__photo"
+            />
+          </div>
         </div>
       </section>
 
