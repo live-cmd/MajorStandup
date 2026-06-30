@@ -11,6 +11,7 @@
   border: 1px solid rgba(225,53,47,0.15);
   aspect-ratio: 3 / 4;
   position: relative;
+  background: var(--black-mid);
 }
 
 .portfolio-photo img {
@@ -34,6 +35,7 @@
 @media (max-width: 768px) {
   .portfolio-grid {
     grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
 }
 
