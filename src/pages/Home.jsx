@@ -45,7 +45,7 @@ export default function Home() {
               <div className="home-hero__photo-wrap">
                 <div className="home-hero__photo-glow" />
                 <img
-                  src={SUPABASE('Major_black-red.heic')}
+                  src={SUPABASE('Major_black-red.jpg')}
                   alt="Major Johnson — Stand-Up Comedian"
                   className="home-hero__photo"
                 />
@@ -89,7 +89,7 @@ export default function Home() {
           <ScrollReveal delay={150}>
             <div className="home-bio__right">
               <img
-                src={SUPABASE('Major-big-smile.heic')}
+                src={SUPABASE('Major-big-smile.jpg')}
                 alt="Major Johnson"
                 className="home-bio__photo"
               />
