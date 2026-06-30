@@ -7,9 +7,9 @@ const SUPABASE = (path) =>
   `https://psxvjiuufwwcqrkdpueh.supabase.co/storage/v1/object/public/afterdark-media/major/${path}`;
 
 const PHOTOS = [
-  { src: SUPABASE('Major_black-red.heic'), alt: 'Major Johnson — performance shot' },
-  { src: SUPABASE('Major-big-smile.heic'), alt: 'Major Johnson — connecting with the crowd' },
-  { src: SUPABASE('Major-black-gold.heic'), alt: 'Major Johnson — headliner set' },
+  { src: SUPABASE('Major_black-red.jpg'), alt: 'Major Johnson — performance shot' },
+  { src: SUPABASE('Major-big-smile.jpg'), alt: 'Major Johnson — connecting with the crowd' },
+  { src: SUPABASE('Major-black-gold.jpg'), alt: 'Major Johnson — headliner set' },
 ];
 
 export default function Portfolio() {
