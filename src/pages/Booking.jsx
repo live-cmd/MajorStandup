@@ -6,14 +6,6 @@ const SUPABASE = (path) =>
   `https://psxvjiuufwwcqrkdpueh.supabase.co/storage/v1/object/public/afterdark-media/major/${path}`;
 
 const STAGE_TIME_OPTIONS = ['5–7 min', '8–10 min', '11–15 min', '20 min', '30+ min'];
-const BUDGET_OPTIONS = [
-  'Under $500',
-  '$500–$1,000',
-  '$1,000–$2,500',
-  '$2,500–$5,000',
-  '$5,000+',
-  'Flexible / Negotiable',
-];
 
 const EMPTY_FORM = {
   name: '',
@@ -186,13 +178,15 @@ export default function Booking() {
               </div>
 
               <div>
-                <label className="booking-label">Budget Range *</label>
-                <select name="budget" value={form.budget} onChange={handleChange} className="booking-input booking-select" required>
-                  <option value="">Select range</option>
-                  {BUDGET_OPTIONS.map(opt => (
-                    <option key={opt} value={opt}>{opt}</option>
-                  ))}
-                </select>
+                <label className="booking-label">What Does This Gig Pay? *</label>
+                <input
+                  name="budget"
+                  value={form.budget}
+                  onChange={handleChange}
+                  className="booking-input"
+                  placeholder="Let us know the offer for this booking"
+                  required
+                />
               </div>
 
               <div>
