@@ -3,6 +3,9 @@ import { supabase } from '../lib/supabaseClient';
 import './PageShell.css';
 import './Calendar.css';
 
+const SUPABASE = (path) =>
+  `https://psxvjiuufwwcqrkdpueh.supabase.co/storage/v1/object/public/afterdark-media/major/${path}`;
+
 export default function Calendar() {
   const [shows, setShows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,14 +28,23 @@ export default function Calendar() {
 
   return (
     <div className="calendar-page">
-      <section className="page-hero">
-        <div className="container">
-          <p className="section-label">On The Road</p>
-          <h1 className="display text-red page-hero__title">Upcoming Shows</h1>
-          <p className="page-hero__sub text-dim">
-            Catch Major live — comedy clubs, promoter shows, corporate
-            events, and everywhere in between.
-          </p>
+      <section className="page-hero page-hero--with-photo">
+        <div className="container page-hero__inner">
+          <div className="page-hero__text">
+            <p className="section-label">On The Road</p>
+            <h1 className="display text-red glow-text page-hero__title">Upcoming Shows</h1>
+            <p className="page-hero__sub text-dim">
+              Catch Major live — comedy clubs, promoter shows, corporate
+              events, and everywhere in between.
+            </p>
+          </div>
+          <div className="page-hero__photo-wrap">
+            <img
+              src={SUPABASE('Major-mic-point.jpg')}
+              alt="Major Johnson on stage"
+              className="page-hero__photo"
+            />
+          </div>
         </div>
       </section>
 
