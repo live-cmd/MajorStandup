@@ -12,6 +12,9 @@ const PHOTOS = [
   { src: SUPABASE('Major_black-red.jpg'), alt: 'Major Johnson — performance shot' },
   { src: SUPABASE('Major-big-smile.jpg'), alt: 'Major Johnson — connecting with the crowd' },
   { src: SUPABASE('Major-black-gold.jpg'), alt: 'Major Johnson — headliner set' },
+  { src: SUPABASE('Major-looking-up.jpg'), alt: 'Major Johnson' },
+  { src: SUPABASE('Major-mic-point.jpg'), alt: 'Major Johnson on stage' },
+  { src: SUPABASE('Major-mic-point-2.jpg'), alt: 'Major Johnson pointing the mic at the crowd' },
 ];
 
 function getYoutubeId(url) {
@@ -70,7 +73,7 @@ export default function Portfolio() {
           </ScrollReveal>
           <div className="portfolio-grid">
             {PHOTOS.map((photo, i) => (
-              <ScrollReveal key={i} delay={i * 100}>
+              <ScrollReveal key={i} delay={i * 80}>
                 <div className="portfolio-photo">
                   <img src={photo.src} alt={photo.alt} />
                 </div>
