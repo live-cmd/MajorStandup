@@ -27,8 +27,17 @@ export default function Admin() {
   const [message, setMessage] = useState('');
   const [deleting, setDeleting] = useState(null);
 
+  // Open Mic list state
+  const [signups, setSignups] = useState([]);
+  const [signupsLoading, setSignupsLoading] = useState(false);
+  const [clearing, setClearing] = useState(false);
+  const [micMessage, setMicMessage] = useState('');
+
   useEffect(() => {
-    if (authed) fetchShows();
+    if (authed) {
+      fetchShows();
+      fetchSignups();
+    }
   }, [authed]);
 
   async function fetchShows() {
@@ -39,6 +48,33 @@ export default function Admin() {
       .order('date', { ascending: true });
     if (!error) setShows(data || []);
     setLoading(false);
+  }
+
+  async function fetchSignups() {
+    setSignupsLoading(true);
+    const { data, error } = await supabase
+      .from('major_open_mic_signups')
+      .select('id, first_name, last_name, stage_name, created_at')
+      .order('created_at', { ascending: true });
+    if (!error) setSignups(data || []);
+    setSignupsLoading(false);
+  }
+
+  async function handleClearList() {
+    if (!window.confirm(`Clear all ${signups.length} signups for this week? This cannot be undone.`)) return;
+    setClearing(true);
+    setMicMessage('');
+    const { error } = await supabase
+      .from('major_open_mic_signups')
+      .delete()
+      .neq('id', '00000000-0000-0000-0000-000000000000'); // delete all rows
+    if (error) {
+      setMicMessage('❌ Error clearing list: ' + error.message);
+    } else {
+      setMicMessage('✓ List cleared — ready for next week.');
+      fetchSignups();
+    }
+    setClearing(false);
   }
 
   function handleLogin(e) {
@@ -60,16 +96,13 @@ export default function Admin() {
     e.preventDefault();
     setSaving(true);
     setMessage('');
-
     const payload = { ...form };
-
     let error;
     if (editingId) {
       ({ error } = await supabase.from('major_shows').update(payload).eq('id', editingId));
     } else {
       ({ error } = await supabase.from('major_shows').insert([payload]));
     }
-
     if (error) {
       setMessage('❌ Error saving show: ' + error.message);
     } else {
@@ -139,6 +172,7 @@ export default function Admin() {
         <button className="admin-pill" onClick={() => { setAuthed(false); window.location.href = '/calendar'; }}>Sign Out</button>
       </div>
 
+      {/* ── ADD / EDIT SHOW ── */}
       <section className="admin-section">
         <h2 className="admin-section__title">{editingId ? 'Edit Show' : 'Add New Show'}</h2>
         {message && (
@@ -157,7 +191,6 @@ export default function Admin() {
               <input type="date" name="date" value={form.date} onChange={handleFormChange} className="admin-input" required />
             </div>
           </div>
-
           <div className="admin-form__row">
             <div>
               <label className="admin-label">Time</label>
@@ -168,22 +201,18 @@ export default function Admin() {
               <input name="city" value={form.city} onChange={handleFormChange} className="admin-input" placeholder="e.g. Philadelphia, PA" />
             </div>
           </div>
-
           <div>
             <label className="admin-label">Venue</label>
             <input name="venue" value={form.venue} onChange={handleFormChange} className="admin-input" placeholder="e.g. Cool J's AfterDARK" />
           </div>
-
           <div>
             <label className="admin-label">Ticket URL</label>
             <input name="ticket_url" value={form.ticket_url} onChange={handleFormChange} className="admin-input" placeholder="https://..." />
           </div>
-
           <div>
             <label className="admin-label">Notes</label>
             <input name="notes" value={form.notes} onChange={handleFormChange} className="admin-input" placeholder="Optional details" />
           </div>
-
           <div className="admin-form__actions">
             <button type="submit" className="btn btn-red" disabled={saving}>
               {saving ? 'Saving...' : editingId ? 'Update Show' : 'Add Show'}
@@ -193,6 +222,7 @@ export default function Admin() {
         </form>
       </section>
 
+      {/* ── SHOWS LIST ── */}
       <section className="admin-section">
         <h2 className="admin-section__title">Upcoming Shows</h2>
         {loading && <p className="admin-loading">Loading...</p>}
@@ -213,6 +243,54 @@ export default function Admin() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* ── OPEN MIC LIST ── */}
+      <section className="admin-section">
+        <h2 className="admin-section__title">🎤 Open Mic Sign-Up List</h2>
+        <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.85rem', marginBottom: '20px' }}>
+          Clear the list each week before signups open for the next session.
+        </p>
+
+        {micMessage && (
+          <div className={`admin-message ${micMessage.startsWith('❌') ? 'admin-message--error' : 'admin-message--success'}`}>
+            {micMessage}
+          </div>
+        )}
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px', flexWrap: 'wrap' }}>
+          <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.9rem' }}>
+            {signupsLoading ? 'Loading...' : `${signups.length} signup${signups.length !== 1 ? 's' : ''} on the current list`}
+          </span>
+          <button
+            className="btn btn-red"
+            style={{ padding: '10px 24px', fontSize: '0.8rem' }}
+            onClick={handleClearList}
+            disabled={clearing || signups.length === 0}
+          >
+            {clearing ? 'Clearing...' : '🗑 Clear List for Next Week'}
+          </button>
+        </div>
+
+        {!signupsLoading && signups.length > 0 && (
+          <div className="admin-shows">
+            {signups.map((s, i) => (
+              <div key={s.id} className="admin-show-row">
+                <div className="admin-show-row__info">
+                  <div className="admin-show-row__name">
+                    {i + 1}. {s.stage_name || `${s.first_name} ${s.last_name}`}
+                  </div>
+                  <div className="admin-show-row__meta">
+                    {i < 18 ? '✓ Guaranteed' : 'Standby'} · Signed up {new Date(s.created_at).toLocaleDateString()}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        {!signupsLoading && signups.length === 0 && (
+          <p className="admin-empty">List is empty — ready for signups.</p>
+        )}
       </section>
     </div>
   );
