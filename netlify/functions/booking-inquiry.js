@@ -45,7 +45,7 @@ exports.handler = async function (event) {
       <p><strong>Event Location / Venue:</strong> ${eventLocation || 'Not provided'}</p>
       <p><strong>Stage Time Requested:</strong> ${stageTime}</p>
       <p><strong># of Comedians on Show:</strong> ${comedianCount || 'Not provided'}</p>
-      <p><strong>Budget Range:</strong> ${budget}</p>
+      <p><strong>Offer:</strong> ${budget}</p>
       <p><strong>Message:</strong> ${message || 'None'}</p>
     `;
 
