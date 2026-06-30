@@ -15,10 +15,47 @@
   max-width: 560px;
 }
 
+/* Two-column hero variant with a photo (Calendar, Open Mic, Booking) */
+.page-hero--with-photo {
+  text-align: left;
+}
+.page-hero--with-photo .page-hero__inner {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.page-hero--with-photo .page-hero__sub {
+  margin: 0 0 16px;
+}
+.page-hero__photo-wrap {
+  position: relative;
+}
+.page-hero__photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: top;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(225,53,47,0.25);
+  display: block;
+}
+
 @media (max-width: 768px) {
   .page-hero {
     padding: 100px 0 48px;
   }
   .page-hero__title { font-size: clamp(2.2rem, 10vw, 3.5rem); }
   .page-hero__sub { font-size: 0.95rem; }
+
+  .page-hero--with-photo { text-align: center; }
+  .page-hero--with-photo .page-hero__inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .page-hero__photo-wrap {
+    max-width: 320px;
+    margin: 0 auto;
+    order: -1;
+  }
 }
