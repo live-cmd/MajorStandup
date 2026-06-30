@@ -25,6 +25,14 @@ export default function Nav() {
 
   useEffect(() => { setMenuOpen(false); }, [location]);
 
+  // Lock body scroll while the mobile menu is open so the fixed overlay
+  // stays anchored to the visible viewport, regardless of scroll position
+  // when the menu was opened.
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
   return (
     <header className={`nav${scrolled ? ' nav--scrolled' : ''}${menuOpen ? ' nav--open' : ''}`}>
       <div className="nav__inner">
