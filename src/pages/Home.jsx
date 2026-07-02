@@ -22,7 +22,7 @@ export default function Home() {
               <img src={LOGO} alt="M.A.J.O.R" className="home-hero__logo" />
               <p className="section-label">Stand-Up Comedian</p>
               <h1 className="display text-red glow-text home-hero__title">
-                Making A<br />Joke Out<br />Of Reality
+                Making A<br />Joke Outta<br /Reality
               </h1>
             </ScrollReveal>
             <ScrollReveal delay={100}>
@@ -63,10 +63,10 @@ export default function Home() {
             <div>
               <p className="section-label">The Story</p>
               <span className="red-line" />
-              <h2 className="home-bio__title">M.A.J.O.R —<br />Making A Joke Out Of Reality</h2>
+              <h2 className="home-bio__title">M.A.J.O.R —<br />Making A Joke Outta Reality</h2>
               <div className="home-bio__text">
                 <p>
-                  Major Johnson is a stand-up comedian, doing stand-up for five
+                  Major Johnson is a stand-up comedian, doing stand-up for nearlt ten
                   years under the stage name of Major. He tells his audiences that
                   Major stands for Making A Joke Out of Reality — a lot of his
                   comedy references his real life experiences.
