@@ -27,7 +27,7 @@ export default function Home() {
             </ScrollReveal>
             <ScrollReveal delay={100}>
               <p className="home-hero__sub text-dim">
-                Five years on stage. Every kind of room. From Chester, PA
+                Ten years on stage. Every kind of room. From Chester, PA
                 to wherever the next mic is — Major Johnson shows up and
                 delivers every time.
               </p>
@@ -66,10 +66,10 @@ export default function Home() {
               <h2 className="home-bio__title">M.A.J.O.R —<br />Making A Joke Outta Reality</h2>
               <div className="home-bio__text">
                 <p>
-                  Major Johnson is a stand-up comedian, doing stand-up for nearlt ten
+                  Major Johnson is a stand-up comedian, doing stand-up for nearly ten
                   years under the stage name of Major. He tells his audiences that
                   Major stands for Making A Joke Out of Reality — a lot of his
-                  comedy references his real life experiences.
+                  comedy references his real-life experiences.
                 </p>
                 <p>
                   Comedy came to Major in the form of a dream after spending a
