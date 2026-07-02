@@ -81,10 +81,11 @@ export default function Admin() {
     if (!window.confirm(`Clear all ${signups.length} signups for this week? This cannot be undone.`)) return;
     setClearing(true);
     setMicMessage('');
+    const ids = signups.map(s => s.id);
     const { error } = await supabase
       .from('major_open_mic_signups')
       .delete()
-      .neq('id', '00000000-0000-0000-0000-000000000000'); // delete all rows
+      .in('id', ids);
     if (error) {
       setMicMessage('❌ Error clearing list: ' + error.message);
     } else {
