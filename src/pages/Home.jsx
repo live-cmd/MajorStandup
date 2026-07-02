@@ -22,7 +22,7 @@ export default function Home() {
               <img src={LOGO} alt="M.A.J.O.R" className="home-hero__logo" />
               <p className="section-label">Stand-Up Comedian</p>
               <h1 className="display text-red glow-text home-hero__title">
-                Making A<br />Joke Outta<br /Reality
+                Making A<br />Joke Outta<br />Reality
               </h1>
             </ScrollReveal>
             <ScrollReveal delay={100}>
